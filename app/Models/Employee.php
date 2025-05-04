@@ -26,5 +26,10 @@ class Employee extends Model
      return $this->hasMany(Product::class);
  }
 
+ public function sale()
+{
+    return $this->hasMany(Debtordebtorslevel2::class, 'employee_id');
+}
+
 
 }

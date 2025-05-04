@@ -65,37 +65,42 @@ class SaleController extends Controller
          DB::beginTransaction();
      
          try {
-             // حساب القيم
-             $totalPrice = $data['quantity'] * $data['price_profit'];
-             $total_Total_price_without_profit = $data['quantity'] * $data['price_unit'];
-     
-       // SaleController.php
-Sale::create([
-    'product_id'   => $product->id,
-    'employee_id'  => $data['employee_id'],
-    'price_unit'   => $data['price_unit'],
-    'quantity'     => $data['quantity'],
-    'price_profit' => $data['price_profit'],
-    'date_of_pay'  => $data['date_of_pay'],
-    'total_price'  => $totalPrice,
-    'total_Total_price_without_profit'  => $total_Total_price_without_profit,
-]);
-             // خصم الكمية من الكمية المتبقية في المخزون
-             $product->decrement('quantity', $data['quantity']);
-             
-             // زيادة الكمية المباعة
-             $product->increment('sold_quantity', $data['quantity']);
-     
-             // إنهاء المعاملة
-             DB::commit();
-     
-             // العودة مع رسالة نجاح
-             return redirect()->route('sales.index')->with('success', 'تم بيع ' . $data['quantity'] . ' وحدة بنجاح');
-         } catch (\Exception $e) {
-             // إذا حدث خطأ، نقوم بالتراجع عن المعاملة
-             DB::rollBack();
-             return redirect()->route('sales.index')->with('error', 'حدث خطأ أثناء معالجة عملية البيع');
-         }
+            // حساب القيم
+            $totalPrice = $data['quantity'] * $data['price_profit'];
+            $total_Total_price_without_profit = $data['quantity'] * $data['price_unit'];
+        
+            // إنشاء السجل في جدول المبيعات
+            Sale::create([
+                'product_id'   => $product->id,
+                'employee_id'  => $data['employee_id'],
+                'price_unit'   => $data['price_unit'],
+                'quantity'     => $data['quantity'],
+                'price_profit' => $data['price_profit'],
+                'date_of_pay'  => $data['date_of_pay'],
+                'total_price'  => $totalPrice,
+                'total_Total_price_without_profit' => $total_Total_price_without_profit,
+            ]);
+        
+            // خصم الكمية من المخزون
+            $product->decrement('quantity', $data['quantity']);
+        
+            // زيادة الكمية المباعة
+            $product->increment('sold_quantity', $data['quantity']);
+        
+            // ✅ تحديث اجمالي المبيعات للموظف
+            $employee = Employee::find($data['employee_id']);
+            $employee->prg += $totalPrice;
+            $employee->save();
+        
+            // إنهاء المعاملة
+            DB::commit();
+        
+            return redirect()->route('sales.index')->with('success', 'تم بيع ' . $data['quantity'] . ' وحدة بنجاح');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('sales.index')->with('error', 'حدث خطأ أثناء معالجة عملية البيع');
+        }
+        
      }
      
 

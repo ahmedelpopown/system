@@ -31,10 +31,9 @@
                                             <td>ID</td>
                                             <td>اسم الجندي</td>
                                             <td>اجمالي مبيعاته</td>
-                                            <td>في شهر</td>
-                                            <td>نقود مؤجله</td>
-                                            <td> اسم الجندي المدين</td>
+                                  
                                             <td>التاريخ</td>
+                                          <td>عرض</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,13 +44,14 @@
                                                 
                                                 <td>{{$emp->id}}</td>
                                             <td>{{$emp->name}}</td>
-                                            <td>اجمالي مبيعاته</td>
-                                            <td>في شهر</td>
-                                            <td>نقود مؤجله</td>
-                                            <td> اسم الجندي المدين</td>
-                                            <td>التاريخ</td>
-
+                                            <td>{{$emp->prg}}</td>
+                                          <td>
+                                         <a href="{{ route('employee.show', $emp->id) }}">
+show
+                           </a>
+                                         </td>
                                             </tr>
+                          
                                @endforeach
                                     </tbody>
                                 </table>

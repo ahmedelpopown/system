@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', ' المبيعات')
+@section('title', ' الجندي')
 
 @section('content')
     <section class="content">
@@ -8,21 +8,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
                         <div class="card-header">
-                            <h3 class="card-title"> المبيعات</h3>
-                            <a href="{{route('sales.create')}}" class="btn btn-success mb-3"> اضافه المبيعات</a>
+                        <h2>تفاصيل مبيعات الموظف: {{ $employee->name }}</h2>
+                        <a href="#" class="btn btn-success mb-3"> اضافة منتج جديد</a>
                         </div>
                         <div class="card-body">
                             <!-- نموذج إرسال إجازة جماعية -->
@@ -34,46 +23,28 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-
-
-                                            <td>ID</td>
-                                            <td>اسم المنتج</td>
-                                            <td>الكميه كامله</td>
-                                            <td>عدد الوحدات المباعه</td>
-                                            <td>اجمالي المبيعات الحاليه </td>
-                                            <!-- <td>اجمالي المبيعات المتوقعة </td> -->
-                                            <td>مبيعات بدون ربح</td>
+                                      
                                             <td>اسم الجندي</td>
-                                            <td>تاريخ</td>
+                                            <td>اسم المنتج</td>
+                                            <td> الكميه</td>
+                                            <td> السعر بي الربح</td>
+                                            <td>  اجمالي السعر بي الربح</td>
 
-                                          
+                                            <td>في شهر</td> >
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($sales as $sale)
-                                            <tr>
-
-                                                <!--الكميه الكامه current_quantity
-                                                        الكميه الحاليه quantity
-                                                        cost_price اجمالي السعر من المورد
-                                                        price : سعر الوحده
-                                                        -->
-                                                <td>{{$sale->id}}</td>
-                                                <td>{{$sale->product->name}}</td>
-                                                <td>{{$sale->product->quantity}}</td>
-                                                <td>{{$sale->quantity}}</td>
-                                                <td>{{ $sale->total_price }}</td>
-                                                <!-- <td>{{$totalExpectedSales = $sale->qئuantity * $sale->product->price }}</td> -->
-                                                <td>{{ $sale->total_Total_price_without_profit }}</td>
-                                                <td>{{$sale->employee->name }}</td>
-                                                <td>{{ $sale->date_of_pay}}</td>
-
- 
-                                                 <!-- <td>شهر</td> -->
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+                                    @foreach ($employee->sales as $sale)
+            <tr>
+                <td>{{ $sale->employee->name ?? 'منتج غير معروف' }}</td>
+                <td>{{ $sale->product->name ?? 'منتج غير معروف' }}</td>
+                <td>{{ $sale->quantity }}</td>
+                <td>{{ $sale->price_profit }}</td>
+                <td>{{ $sale->total_price }}</td>
+                <td>{{ $sale->date_of_pay }}</td>
+            </tr>
+        @endforeach
+                                     </tbody>
                                 </table>
 
                                 <button type="submit" class="btn btn-primary mt-3">إرسال </button>

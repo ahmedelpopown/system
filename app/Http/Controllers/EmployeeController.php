@@ -37,7 +37,9 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+        $employee = Employee::with('sales.product')->findOrFail($id);
+        return view('pages.emp.show', compact('employee'));
     }
 
     /**

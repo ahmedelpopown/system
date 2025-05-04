@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', ' المبيعات')
+@section('title', ' المورد')
 
 @section('content')
     <section class="content">
@@ -8,21 +8,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                    @if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
                         <div class="card-header">
-                            <h3 class="card-title"> المبيعات</h3>
-                            <a href="{{route('sales.create')}}" class="btn btn-success mb-3"> اضافه المبيعات</a>
+                            <h3 class="card-title"> المورد</h3>
+                            <a href="{{route('debtor.create')}}" class="btn btn-success mb-3"> اضافه</a>
                         </div>
                         <div class="card-body">
                             <!-- نموذج إرسال إجازة جماعية -->
@@ -34,45 +23,30 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-
-
-                                            <td>ID</td>
-                                            <td>اسم المنتج</td>
-                                            <td>الكميه كامله</td>
-                                            <td>عدد الوحدات المباعه</td>
-                                            <td>اجمالي المبيعات الحاليه </td>
-                                            <!-- <td>اجمالي المبيعات المتوقعة </td> -->
-                                            <td>مبيعات بدون ربح</td>
-                                            <td>اسم الجندي</td>
-                                            <td>تاريخ</td>
-
-                                          
+                                         
+                                            <th>ID</th>
+                                            <th>اسم المنتج</th>
+                                            <th>سعر </th>
+                                            <th>الكميه </th>
+                                             <th>اسم  الجندي  الي اشترا</th>
+                                            <th>اسم  الجندي اللي باع </th>
+                                            <th>تاريخ </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($sales as $sale)
-                                            <tr>
+                                    @foreach ($debtor_data as $debtor)
+            <tr>
+                <td>{{ $debtor->id}}</td>
+                <td>{{ $debtor->name}}</td>
+                <td>{{ $debtor->price}}</td>
+                <td>{{ $debtor->quantity}}</td>
+                <td>{{ $debtor->user}}</td>
+                <td>{{ $debtor->employee->name}}</td>
+                <td>{{ $debtor->date}}</td>
 
-                                                <!--الكميه الكامه current_quantity
-                                                        الكميه الحاليه quantity
-                                                        cost_price اجمالي السعر من المورد
-                                                        price : سعر الوحده
-                                                        -->
-                                                <td>{{$sale->id}}</td>
-                                                <td>{{$sale->product->name}}</td>
-                                                <td>{{$sale->product->quantity}}</td>
-                                                <td>{{$sale->quantity}}</td>
-                                                <td>{{ $sale->total_price }}</td>
-                                                <!-- <td>{{$totalExpectedSales = $sale->qئuantity * $sale->product->price }}</td> -->
-                                                <td>{{ $sale->total_Total_price_without_profit }}</td>
-                                                <td>{{$sale->employee->name }}</td>
-                                                <td>{{ $sale->date_of_pay}}</td>
-
- 
-                                                 <!-- <td>شهر</td> -->
-
-                                            </tr>
-                                        @endforeach
+             
+            </tr>
+        @endforeach
                                     </tbody>
                                 </table>
 
@@ -140,3 +114,9 @@
         });
     </script>
 @endpush
+
+
+
+
+<!-- ////////////////////////////////////////////////////////// -->
+

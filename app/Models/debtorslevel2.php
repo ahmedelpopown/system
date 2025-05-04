@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Debtor extends Model
+class debtorslevel2 extends Model
 {
-    /** @use HasFactory<\Database\Factories\DebtorFactory> */
     use HasFactory;
+    protected $table = 'debtordebtorslevel_2';
+
     protected $fillable = ['name', 'price', 'quantity', 'user', 'employee_id', 'date'];
 
     public function employee()

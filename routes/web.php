@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DebtorController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\home;
 use App\Http\Controllers\MinProductController;
@@ -14,5 +15,6 @@ Route::resource('product', ProductController::class);
 Route::resource('employee', EmployeeController::class);
 Route::resource('sales', SaleController::class);
 Route::resource('supplier', SupplierController::class);
+Route::resource('debtor', DebtorController::class);
 Route::resource('min_product', MinProductController::class);
 Route::delete('/products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulkDelete');

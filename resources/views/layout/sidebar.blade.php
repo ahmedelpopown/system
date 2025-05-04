@@ -58,24 +58,23 @@
             </a>
           </li>
  
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{ route('supplier.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 المورد
-                <!-- <span class="right badge badge-danger">New</span> -->
+               </p>
+            </a>
+          </li> -->
+          <!-- seales -->
+          <li class="nav-item">
+            <a href="{{ route('debtor.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+         المدينين
               </p>
             </a>
           </li>
-          <!-- seales -->
-          <!-- <li class="nav-item">
-            <a href="{{ route('min_product.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-            اقل المنتجات
-              </p>
-            </a>
-          </li> -->
           <li class="nav-item">
             <a href="{{ route('sales.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
