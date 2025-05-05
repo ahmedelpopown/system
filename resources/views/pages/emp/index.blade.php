@@ -10,8 +10,8 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="card-title"> المبيعات</h3>
-                            <a href="#" class="btn btn-success mb-3"> اضافة منتج جديد</a>
+                            <!-- <h3 class="card-title"> المبيعات</h3> -->
+                            <!-- <a href="#" class="btn btn-success mb-3"> اضافة منتج جديد</a> -->
                         </div>
                         <div class="card-body">
                             <!-- نموذج إرسال إجازة جماعية -->
@@ -47,7 +47,7 @@
                                             <td>{{$emp->prg}}</td>
                                           <td>
                                          <a href="{{ route('employee.show', $emp->id) }}">
-show
+                              show
                            </a>
                                          </td>
                                             </tr>
